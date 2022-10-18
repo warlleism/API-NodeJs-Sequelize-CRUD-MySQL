@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
+          
 
 class User extends Model {
     static init(sequelize) {
@@ -6,6 +7,7 @@ class User extends Model {
             name: DataTypes.STRING,
             email: DataTypes.STRING,
             password: DataTypes.STRING
+            
         }, {
             sequelize
         })
