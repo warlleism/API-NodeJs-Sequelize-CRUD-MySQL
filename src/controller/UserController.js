@@ -17,7 +17,7 @@ module.exports = {
                 .createHash('sha256')
                 .update(password)
                 .digest('hex');
-                
+
             password = hash;
 
             const user = await User.create({ name, email, password })
@@ -47,22 +47,30 @@ module.exports = {
 
         var { email, password } = req.body
 
-
         const user = await User.findOne({ where: { email } })
-        const pass = user.dataValues.password
 
-        const hash = crypto.createHash('sha256').update(password).digest('hex');
-        password = hash;
+        if (!user) {
+            res.status(400).send({ error: 'User not existis ' });
+        } else {
+            const pass = user.dataValues.password
 
-        if (pass != password)
-            return res.status(400).send({ error: 'Invalid password' });
+            const hash = crypto.createHash('sha256').update(password).digest('hex');
+            password = hash;
 
-        try {
-            const user = await User.findAll()
-            res.send(user)
-        } catch (err) {
-            res.status(400).send({ error: 'User Listing failed ' + err });
+            if (pass != password)
+                res.status(400).send({ error: 'Invalid password' });
+
+            try {
+                const user = await User.findAll()
+                res.send(user)
+            } catch (err) {
+                res.status(400).send({ error: 'User Listing failed ' + err });
+            }
         }
+
+
+
+
     },
 
     async updateUser(req, res) {
