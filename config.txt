@@ -1,0 +1,11 @@
+# Criar base de dados com sequelize
+
+- npx sequelize db:create
+
+# Gerar migration
+
+- npx sequelize migration:create --name=create-nomeTabela
+
+# Criar tabela com sequelize apartir da migration
+
+- npx sequelize db:migrate

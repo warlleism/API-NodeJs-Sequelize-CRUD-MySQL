@@ -3,7 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const Router = require('./controller/routes')
 
-require('./database')
+require('./database/index')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
